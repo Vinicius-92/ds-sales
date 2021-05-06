@@ -1,6 +1,8 @@
 package com.viniciusaugusto.dsvendas.services;
 
 import com.viniciusaugusto.dsvendas.dto.SaleDTO;
+import com.viniciusaugusto.dsvendas.dto.SaleSuccessDTO;
+import com.viniciusaugusto.dsvendas.dto.SaleSumDTO;
 import com.viniciusaugusto.dsvendas.entities.Sale;
 import com.viniciusaugusto.dsvendas.repositories.SaleRepository;
 import com.viniciusaugusto.dsvendas.repositories.SellerRepository;
@@ -27,5 +29,15 @@ public class SaleService {
         sellerRepository.findAll();
         Page<Sale> result = repository.findAll(pageable);
         return result.map(SaleDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSumDTO> amountGroupedBySeller() {
+        return repository.amountGroupedBySeller();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSuccessDTO> sucessGroupedBySeller() {
+        return repository.successGroupedBySeller();
     }
 }
